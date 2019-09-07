@@ -1,161 +1,55 @@
-[![CircleCI branch](https://img.shields.io/circleci/project/github/duxianwei520/react/master.svg?style=flat-square)](https://circleci.com/gh/duxianwei520/react)
-[![GitHub forks](https://img.shields.io/github/forks/duxianwei520/react.svg)](https://github.com/duxianwei520/react/network)
-[![GitHub stars](https://img.shields.io/github/stars/duxianwei520/react.svg)](https://github.com/duxianwei520/react/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/duxianwei520/react.svg)](https://github.com/duxianwei520/react/issues)
-[![GitHub license](https://img.shields.io/github/license/duxianwei520/react.svg)](https://github.com/duxianwei520/react/blob/master/LICENSE)
-[![Coverage Status](https://coveralls.io/repos/github/duxianwei520/react/badge.svg)](https://coveralls.io/github/duxianwei520/react)
+# 说明
 
-## 项目技术栈
+一个react leaflet demo 参考此项目[https://github.com/duxianwei520/react](https://github.com/duxianwei520/react)，顺便学学react和leaflet
 
-node8.7.0 + react@16.5.2 + redux@3.7.2 + react-router@3.2.0 + webpack@3.10.0 + axios@0.18.0 + less@2.7.1 + antd@3.18.2
+## 一些react的学习资料
 
-## 交流
-QQ群：159697743
+[react文档](https://react.docschina.org/tutorial/tutorial.html)
+[react小书](http://huziketang.mangojuice.top/books/react/)
+[react入门教程](https://hulufei.gitbooks.io/react-tutorial/content/index.html)
+[react后台Demo](https://github.com/duxianwei520/react)
 
-## 项目运行
+## react的生命周期
 
+[官方文档地址](https://reactjs.org/docs/react-component.html#the-component-lifecycle)
 
-```
-git clone --depth 1 https://github.com/duxianwei520/react.git  
+### init阶段
 
-cd react 
+init阶段包括以下几个过程,mount阶段：
 
-npm install 
+1. constructor 构造函数，因为是类所以构造函数会先于生命周期执行
+2. static getDerivedStateFromProps() 这个是一个静态方法，当在组件中接收到新属性，想去修改组件中的state的时候调用这个方法
+3. getInitialState 这个是获取初始化的状态
+4. componentWillMount 组件将要挂载  （在react16之后要废弃但是尚未删除）
+5. render 这个阶段是渲染虚拟dom，render是一个纯函数避免在此函数中编写业务代码，只返回必要的渲染的东西即可，比如：原生DOM，react组件，以及一些基本类型。
+6. componentDidMount 组件已经渲染完毕此时是可以访问到虚拟dom的，和服务器的交互逻辑代码也可以写在此处，但是挂载的方法和大对象记得在componentWillUnmount销毁就可以了
 
-npm run dll
+运行时状态和函数，数据更新等方法; update时的一些钩子函数：
 
-注意，由于对公用的npm库做了dll化，所以要先运行npm run dll生成相应的代码
+static getDerivedStateFromProps() 这个方法在更新和挂载阶段都可能会调用
 
-npm start 
-```
-### 对了，如果有小伙伴因为网络原因npm包下载不下来，那么可以试用我已经下载好的安装包，地址在
-```
-https://github.com/duxianwei520/resource/blob/master/react/node_modules.rar
+1. componentWillReceiveProps 组件将要接受参数时调用此方法 （在react16之后要废弃但是尚未删除）
+2. shouldComponentUpdate 组件是否要更新 可以传两个参数nextProps和nextState， 返回true代表可以渲染反之不可，常常可以利用这个函数来优化一些没必要的渲染。
+3. 需要更新的话就会走componentWillUpdate这个方法，不需要的话还是正常的运行 （在react16之后要废弃但是尚未删除）
+4. render 更新之后再次出发render方法
+5. getSnapshotBeforeUpdate 此方法在render函数之后，componentDidUpdate 之前会调用，可以传两个参数prevProps和prevState，表示之前属性和状态，此函数有返回值会作为第三个参数传给componentDidUpdate. 必须和componentDidUpdate一起来使用
+6. componentDidUpdate 组件已经更新完毕了,此函数有三个参数prevProps, prevState, snapshot，表示之前的参数之前的装填和snapshot, 如果涉及到触发一些DOM元素的状态就需要对比活着计算的处理放到getSnapshotBeforeUpdate，然后批量的在componentDidUpdate中调用
 
-```
-欢迎下载
+卸载组件和虚拟dom的阶段，unmount的阶段：
 
-## screenshots
+1. componentWillUnmount 即代表组件将要卸载，在组件上绑定的方法或者用到的一些全局事件和变量可以释放了，也可以取消网络请求，清理无效的DOM等事件的处理
 
+## 优化以及一些注意事项
 
+1. 在合适的时候出发setState。在promise或者settimeout等异步回调中减少setState的触发。setState在正常运行机制下会是批量更新，而在promise或者settimeout等异步中是非批量更新的。
+2. 尽量使用shouldComponent这个方法来触发子组件的更新而避免使用父组件的render方法触发子组件的更新
+3. 注意使用diff算法的时机（待补充。。。）
 
-### login
+## 组件通信如何实现
 
-<img src="https://github.com/duxianwei520/resource/blob/master/react/screenshots/login.gif" width="973" height="557"/>
-
-### echart
-
-<img src="https://github.com/duxianwei520/resource/blob/master/react/screenshots/echart.gif" width="973" height="557"/>
-
-
-### set center
-
-<img src="https://github.com/duxianwei520/resource/blob/master/react/screenshots/set.gif" width="973" height="557"/>
-
-
-### webpack bundle analysis
-
-<img src="https://github.com/duxianwei520/resource/blob/master/react/screenshots/analysis.gif" width="973" height="557"/>
-
-### build dist folder
-
-<img src="https://github.com/duxianwei520/resource/blob/master/react/screenshots/dist.gif" width="973" height="557"/>
-
-
-最后的构建命令
-```
-npm run build (打包，部署)
-
-```
-
-对了，服务端返回的格式我们是这样子一个数据结构
-
-```
-{
-  data: {
-    totalCount: 100,
-    currentPage: 1,
-    pageSize: 10,
-    'list': [
-    ],
-  },
-  msg: '',
-  status: 1,
-}
-
-```
-所有异步请求返回都会经过configs里面的ajax.js做处理，如果请求没有任何问题，那status返回值是1；
-如果请求错误，比如说参数错误或者其他报错之类的，那status返回值就是0；
-如果status值是-1，表示登录超时，那么就会跳出登录。
-这些参数都可以根据实际情况进行调整，报错或者成功的提示信息放在msg里面返回。
-当前项目集成了完整的用户管理、角色管理、模块管理等基本的权限管理功能，小伙伴们一定要同时启动npm run mock才可以看到噢
-
-这个react的项目我有在跟nodejs的express框架配合做接口的开发，可以不靠后端输出数据库真实的数据，仓库地址在
-
-```
-https://github.com/duxianwei520/express
-
-```
-还有一个原生的nodejs版本的，仓库库地址是
-
-```
-https://github.com/duxianwei520/node
-
-```
-基本功能差不多，目前实现了注册登录以及获取用户信息等3个接口的真实api
-
-
-## 说明
-
->  开发环境 win10  Chrome 63.0.3239.132（正式版本） （32 位） nodejs 8.7.0
-
->  如果npm install太慢导致有些npm依赖包下载失败 你可以看控制台的报错信息，再手动npm install 具体的开发包，推荐使用淘宝的注册源，直接运行，
-
-```
-npm install -g cnpm --registry=https://registry.npm.taobao.org 
-
-```
-
-
->  如有问题请直接在 Issues 中提，或者您发现问题并有非常好的解决方案，欢迎 PR 👍
-
-### 大部分人项目启动不起来的原因，要么是node版本太高后者太低，要么就是npm安装的时候有些依赖包没有下载完全，当前的demo肯定是可以跑起来的
-
-### 取消http请求示例：
-```
-import axios from 'axios'
-const axiosHandle = axios.CancelToken.source()
-
-login(){
-  this.props.dispatch(fetchLogin(values, (res) => {},(error)=>{},axiosHandle)
-  取消请求的操作
-  setTimeout(() => {
-    axiosHandle.cancel('手动取消。')
-  }, 3000)
-}
-
-```
-
-
-## 功能一览
-- [√] 项目按路由模块加载
-- [√] 登录，以及登录权限控制
-- [√] 项目公用npm模块dll化
-- [√] 欢迎主页
-- [√] 左侧菜单，正常mini切换
-- [√] redux完整示范
-- [√] mockjs模拟后端返回接口
-- [√] 页面高度flex自适应
-- [√] axios数据跨域的设置
-- [√] 实时的webpack包大小预览,方便优化
-- [√] draftjs编辑器
-
-
-
-## License
-
-[MIT](https://github.com/duxianwei520/react/blob/master/LICENSE)
-
-
-## 交流
-想跟其他的使用react的小伙伴们交流的话，可以加入我创建的reactQQ群：159697743# react-leaflet
+1. 父组件向子组件通信: props
+2. 子组件向父组件通信: props+callback,因为props在父组件的作用域中子组件可以通过调用props把需要传递的信息传递给父组件
+3. 兄弟组件： 通过父节点来进行通信
+4. 跨层级组件:Context 上下文
+5. 发布订阅者模式（Events对象主线自己定义）
+6. 全局状态管理工具 Redux, Mobox
