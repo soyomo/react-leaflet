@@ -2,6 +2,10 @@
 
 一个react leaflet demo 参考此项目[https://github.com/duxianwei520/react](https://github.com/duxianwei520/react)，顺便学学react和leaflet
 
+## leaflet
+
+leaflet的一些入门在pages/menu/readme.md中
+
 ## 一些react的学习资料
 
 [react文档](https://react.docschina.org/tutorial/tutorial.html)
@@ -53,3 +57,8 @@ static getDerivedStateFromProps() 这个方法在更新和挂载阶段都可能�
 4. 跨层级组件:Context 上下文
 5. 发布订阅者模式（Events对象主线自己定义）
 6. 全局状态管理工具 Redux, Mobox
+
+## jsx
+
+jsx是React,createElement(component, props, ...children)函数的语法糖。
+jsx中的className是用来给元素设置class的，因为jsx是js的扩展部分而不是html的代替者，所以属性用小驼峰来命名，所以会把html原生的标签属性做保留；在es5中class是一个保留字；解构赋值的时候分配一个class会出现错误。
