@@ -24,7 +24,7 @@ init阶段包括以下几个过程,mount阶段：
 5. render 这个阶段是渲染虚拟dom，render是一个纯函数避免在此函数中编写业务代码，只返回必要的渲染的东西即可，比如：原生DOM，react组件，以及一些基本类型。
 6. componentDidMount 组件已经渲染完毕此时是可以访问到虚拟dom的，和服务器的交互逻辑代码也可以写在此处，但是挂载的方法和大对象记得在componentWillUnmount销毁就可以了
 
-运行时状态和函数，数据更新等方法; update时的一些钩子函数：
+### 运行时状态和函数，数据更新等方法; update时的一些钩子函数
 
 static getDerivedStateFromProps() 这个方法在更新和挂载阶段都可能会调用
 
@@ -35,7 +35,7 @@ static getDerivedStateFromProps() 这个方法在更新和挂载阶段都可能�
 5. getSnapshotBeforeUpdate 此方法在render函数之后，componentDidUpdate 之前会调用，可以传两个参数prevProps和prevState，表示之前属性和状态，此函数有返回值会作为第三个参数传给componentDidUpdate. 必须和componentDidUpdate一起来使用
 6. componentDidUpdate 组件已经更新完毕了,此函数有三个参数prevProps, prevState, snapshot，表示之前的参数之前的装填和snapshot, 如果涉及到触发一些DOM元素的状态就需要对比活着计算的处理放到getSnapshotBeforeUpdate，然后批量的在componentDidUpdate中调用
 
-卸载组件和虚拟dom的阶段，unmount的阶段：
+### 卸载组件和虚拟dom的阶段，unmount的阶段
 
 1. componentWillUnmount 即代表组件将要卸载，在组件上绑定的方法或者用到的一些全局事件和变量可以释放了，也可以取消网络请求，清理无效的DOM等事件的处理
 

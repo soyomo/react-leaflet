@@ -3,7 +3,7 @@
  * @Author: scf
  * @Date: 2019-09-07 20:20:01
  * @LastEditors: scf
- * @LastEditTime: 2019-09-08 10:45:48
+ * @LastEditTime: 2019-09-08 10:48:09
  */
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
@@ -59,9 +59,7 @@ export default class app extends Component {
     return (
       <div className="leafLetMap"
         ref={this.leafLetDom}
-      >
-        这里是地图
-      </div>
+      />
     )
   }
 }
